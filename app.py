@@ -31,7 +31,7 @@ def predictRoute():
 
         opencodedbase64 = encodeImageIntoBase64(r"ultralytics\runs\detect\predict\inputImage.jpg")
         result = {"image": opencodedbase64.decode('utf-8')}
-        os.system("rm -rf ultralytics/runs")
+        os.system("rmdir /s /q ultralytics\\runs")
 
     except ValueError as val:
         print(val)
