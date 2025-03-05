@@ -9,7 +9,7 @@ CORS(app)
 
 class ClientApp:
     def __init__(self):
-        self.filename = "inputImage.jpg"
+        self.filename = "inputImage.jpeg"
 
 
     
@@ -27,11 +27,11 @@ def predictRoute():
         image = request.json['image']
         decodeImage(image, clApp.filename)
 
-        os.system("cd yolov5/ && python detect.py --weights best.pt --img 416 --conf 0.5 --source ../data/inputImage.jpg")
+        os.system('cd ultralytics/ && yolo task=detect mode=predict model= "C:/Users/lokas/Desktop/Projects/Helmet Detection/ultralytics/best.pt" conf=0.25 source="../data/inputImage.jpeg" save=True')
 
-        opencodedbase64 = encodeImageIntoBase64("yolov5/runs/detect/exp/inputImage.jpg")
+        opencodedbase64 = encodeImageIntoBase64(r"ultralytics\runs\detect\predict\inputImage.jpg")
         result = {"image": opencodedbase64.decode('utf-8')}
-        os.system("rm -rf yolov5/runs")
+        os.system("rm -rf ultralytics/runs")
 
     except ValueError as val:
         print(val)
@@ -46,7 +46,7 @@ def predictRoute():
 
 
 
-
+'''
 @app.route("/live", methods=['GET'])
 @cross_origin()
 def predictLive():
@@ -58,7 +58,7 @@ def predictLive():
     except ValueError as val:
         print(val)
         return Response("Value not found inside  json data")
-    
+''' 
 
 
 
