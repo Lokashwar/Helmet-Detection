@@ -11,14 +11,9 @@ class ClientApp:
     def __init__(self):
         self.filename = "inputImage.jpeg"
 
-
-    
-
 @app.route("/")
 def home():
     return render_template("index.html")
-
-
 
 @app.route("/predict", methods=['POST','GET'])
 @cross_origin()
@@ -44,25 +39,17 @@ def predictRoute():
 
     return jsonify(result)
 
-
-
-'''
 @app.route("/live", methods=['GET'])
 @cross_origin()
 def predictLive():
     try:
-        os.system("cd yolov5/ && python detect.py --weights best.pt --img 416 --conf 0.5 --source 0")
-        os.system("rm -rf yolov5/runs")
+        os.system('cd ultralytics/ && yolo task=detect mode=predict model= "C:/Users/lokas/Desktop/Projects/Helmet Detection/ultralytics/best.pt" conf=0.25 source=0 save=True')
+        os.system("rmdir /s /q ultralytics\\runs")
         return "Camera starting!!" 
 
     except ValueError as val:
         print(val)
         return Response("Value not found inside  json data")
-''' 
-
-
-
-
 
 if __name__ == "__main__":
     clApp = ClientApp()
